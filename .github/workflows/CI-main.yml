@@ -1,0 +1,42 @@
+name: 'CI-master'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  main-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30 # default 360
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        ref: 'main'
+    - name: Install Node 14
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14'
+    - name: 'Install dependencies'
+      run: |
+        ./ci-install-dependencies.sh
+    - name: 'CI Build Command'
+      timeout-minutes: 20
+      run: |
+        ./ci-build.sh
+    - name: 'CI Cypress Report Command'
+      if: ${{ always() }}
+      run: |
+        ./ci-cypress-report.sh
+    - name: Archive jest test results
+      uses: actions/upload-artifact@v1
+      if: ${{ always() }}
+      with:
+        name: jest-stare
+        path: jest-stare
+    - name: Archive cypress test results
+      uses: actions/upload-artifact@v1
+      if: ${{ always() }}
+      with:
+        name: cypress-report
+        path: cypress-report/report

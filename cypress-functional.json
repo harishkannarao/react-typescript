@@ -1,0 +1,20 @@
+{
+    "fixturesFolder": "__functional_tests__/cypress/fixtures",
+    "integrationFolder": "__functional_tests__/cypress/integration",
+    "pluginsFile": "__functional_tests__/cypress/plugins/index.js",
+    "supportFile": "__functional_tests__/cypress/support/index.js",
+    "screenshotsFolder": "cypress-report/screenshots",
+    "videosFolder": "cypress-report/videos",
+    "reporter":"mochawesome",
+    "reporterOptions":{
+        "reportDir":"cypress-report/mochawesome-report",
+        "overwrite":false,
+        "html":true,
+        "json": true 
+    },
+    "baseUrl": "http://localhost:3000",
+    "env": {
+        "API_BASE_URL": "https://api.github.com",
+        "CUSTOMER_API_BASE_URL": "http://localhost:8180"
+    }
+}
