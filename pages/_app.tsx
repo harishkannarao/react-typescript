@@ -3,9 +3,9 @@ import '../css/global.css'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { Footer } from '../components/footer/common-footer'
+import { AppProps } from 'next/app'
 
-// This default export is required in a new `pages/_app.js` file.
-export default function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }: AppProps) {
     const router = useRouter();
     return (
         <>
@@ -21,3 +21,5 @@ export default function MyApp({ Component, pageProps }) {
         </>
     )
 }
+
+export default App;
