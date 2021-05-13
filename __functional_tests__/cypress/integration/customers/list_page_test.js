@@ -111,6 +111,8 @@ describe('Test Customer List Page', () => {
 
         cy.getByTestId("processing-content").should('not.exist');
 
+        cy.getByTestId("go-to-bottom-link").should('exist');
+
         cy.getByTestId("go-to-bottom-link").click();
 
         cy.hash().should('eq', '#customer-table-bottom');
