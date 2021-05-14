@@ -6,8 +6,9 @@ import { listCustomers, deleteCustomer } from "../../components/common/customer"
 import { getParameterByName } from "../../components/common/query_param"
 import { CustomerList } from "../../components/customer/customer";
 
-export class CustomersListPage extends React.Component {
-    constructor(props) {
+
+export class CustomersListPage extends React.Component<any, any> {
+    constructor(props: any) {
         super(props);
         this.state = {
             inputFirstName: '',
@@ -22,7 +23,7 @@ export class CustomersListPage extends React.Component {
         this.fetchData = this.fetchData.bind(this);
     }
 
-    handleFirstNameChange(event) {
+    handleFirstNameChange(event: any) {
         event.preventDefault();
         if (this.state.firstNameTypingTimeout) {
             clearTimeout(this.state.firstNameTypingTimeout);
@@ -33,7 +34,7 @@ export class CustomersListPage extends React.Component {
                 this.fetchData();
             }, 500)
         });
-        const query = this.props.router.query;
+        let query = this.props.router.query;
         if (event.target.value.trim() == '') {
             delete query['firstName'];
         } else {
@@ -46,30 +47,30 @@ export class CustomersListPage extends React.Component {
         this.props.router.push(url, undefined, { shallow: true });
     }
 
-    errorHandler(httpError) {
+    errorHandler(httpError: any) {
         this.setState({
             isProcessing: false,
             error: httpError
         });
     }
 
-    handleDeleteCustomer(event) {
+    handleDeleteCustomer(event: any) {
         event.preventDefault();
         this.setState({
             isProcessing: true
         });
-        const successHandler = (result) => {
+        const successHandler = (result: any) => {
             this.fetchData();
         }
         const data = { 'id': Number(event.target.getAttribute('data-id')) }
         deleteCustomer(data, successHandler, this.errorHandler)
     }
 
-    fetchData(firstName) {
+    fetchData(firstName?: any) {
         this.setState({
             isProcessing: true
         });
-        const successHandler = (result) => {
+        const successHandler = (result: any) => {
             this.setState({
                 isProcessing: false,
                 data: result.data,

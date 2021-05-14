@@ -4,8 +4,8 @@ import { withRouter } from 'next/router'
 import Link from 'next/link'
 import { createCustomer } from '../../components/common/customer'
 
-export class NewCustomerPage extends React.Component {
-    constructor(props) {
+export class NewCustomerPage extends React.Component<any, any> {
+    constructor(props: any) {
         super(props);
         this.state = {
             error: null,
@@ -17,7 +17,7 @@ export class NewCustomerPage extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
-    handleInputChange(event) {
+    handleInputChange(event: any) {
         event.preventDefault();
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -27,13 +27,13 @@ export class NewCustomerPage extends React.Component {
         });
     }
 
-    handleSubmit(event) {
+    handleSubmit(event: any) {
         event.preventDefault();
         this.setState({
             submittingData: true,
             error: null
         })
-        const successHandler = (result) => {
+        const successHandler = (result: any) => {
             this.setState({
                 inputFirstName: '',
                 inputLastName: '',
@@ -42,7 +42,7 @@ export class NewCustomerPage extends React.Component {
             });
             this.props.router.push('/customers/list/');
         }
-        const errorHandler = (httpError) => {
+        const errorHandler = (httpError: any) => {
             this.setState({
                 submittingData: false,
                 error: httpError

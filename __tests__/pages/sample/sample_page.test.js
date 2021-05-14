@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, screen } from '@testing-library/react'
 
-import { SamplePage } from '../../../pages/sample/sample_page.js'
+import { SamplePage } from '../../../pages/sample/sample_page'
 
 describe('Sample Page test', () => {
     test('displays message', async () => {

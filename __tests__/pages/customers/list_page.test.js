@@ -169,7 +169,9 @@ describe('CustomersListPage Component test', () => {
         server.use(
             rest.get(process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers", (req, res, ctx) => {
                 callCount += 1;
-                receivedFirstName = req.url.searchParams.get('firstName');
+                if (req.url.searchParams.has('firstName')) {
+                    receivedFirstName = req.url.searchParams.get('firstName');
+                }
                 return res(
                     ctx.status(200),
                     ctx.json([]),
