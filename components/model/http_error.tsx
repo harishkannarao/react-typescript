@@ -1,3 +1,3 @@
-export interface HttpError {
-    response: any;
+export interface HttpError<R = any>{
+    response: R;
 }
