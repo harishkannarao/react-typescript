@@ -96,7 +96,7 @@ export class CustomersListPage extends React.Component<any, State> {
     }
 
     componentDidMount() {
-        var firstName = getParameterByName("firstName");
+        var firstName: string | null = getParameterByName("firstName");
         if (firstName != null) {
             this.setState({
                 'inputFirstName': firstName
