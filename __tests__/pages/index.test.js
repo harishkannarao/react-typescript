@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, screen } from '@testing-library/react'
 
-import { HomePage } from '../../pages/index.js'
+import { HomePage } from '../../pages/index'
 
 describe('Index Page test', () => {
     test('displays message', async () => {
