@@ -4,9 +4,8 @@ import Link from 'next/link'
 import { withRouter } from 'next/router'
 import { listCustomers, deleteCustomer } from "../../components/common/customer";
 import { getParameterByName } from "../../components/common/query_param"
-import { CustomerList } from "../../components/customer/customer";
+import { CustomerModel, CustomerList } from "../../components/customer/customer";
 import { HttpError } from '../../components/model/http_error';
-import { Customer } from '../../components/model/customer';
 
 interface Inputs {
     inputFirstName: string;
@@ -16,7 +15,7 @@ interface State extends Inputs {
     firstNameTypingTimeout?: any,
     error?: HttpError,
     isProcessing: boolean,
-    data: Customer[]
+    data: CustomerModel[]
 }
 
 export class CustomersListPage extends React.Component<any, State> {
@@ -66,7 +65,7 @@ export class CustomersListPage extends React.Component<any, State> {
         });
     }
 
-    handleDeleteCustomer(event: React.ChangeEvent<HTMLInputElement>) {
+    handleDeleteCustomer(event: React.MouseEvent<HTMLInputElement>) {
         event.preventDefault();
         this.setState({
             isProcessing: true
@@ -74,7 +73,7 @@ export class CustomersListPage extends React.Component<any, State> {
         const successHandler = (result: any) => {
             this.fetchData();
         }
-        const data = { 'id': Number(event.target.getAttribute('data-id')) }
+        const data = { 'id': Number(event.currentTarget.getAttribute('data-id')) }
         deleteCustomer(data, successHandler, this.errorHandler)
     }
 

@@ -1,6 +1,18 @@
 import Link from 'next/link'
+import { Router } from 'next/router'
 
-export function Customer(props) {
+export interface CustomerModel {
+    id: string;
+    firstName: string;
+    lastName: string;
+}
+
+interface CustomerProps {
+    value: CustomerModel;
+    handleDeleteCustomer: (event: React.MouseEvent<HTMLInputElement>) => void;
+}
+
+export function Customer(props: CustomerProps) {
     return (
         <tr>
             <td><input data-testid="delete-button" type="button" data-id={props.value.id} onClick={props.handleDeleteCustomer} value="Delete" /></td>
@@ -11,7 +23,14 @@ export function Customer(props) {
     )
 }
 
-export function CustomerList(props) {
+interface CustomerListProps {
+    isProcessing: boolean;
+    router: Router;
+    data: CustomerModel[];
+    handleDeleteCustomer: (event: React.MouseEvent<HTMLInputElement>) => void;
+}
+
+export function CustomerList(props: CustomerListProps) {
     return (
         props.isProcessing
             ? (
