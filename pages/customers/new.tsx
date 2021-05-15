@@ -3,19 +3,19 @@ import Head from 'next/head'
 import { withRouter } from 'next/router'
 import Link from 'next/link'
 import { createCustomer } from '../../components/common/customer'
-import { IHttpError } from '../../components/common/http_error'
+import { HttpError } from '../../components/model/http_error'
 
-interface IInputs {
+interface Inputs {
     inputFirstName: string;
     inputLastName: string;
 }
 
-interface IState extends IInputs {
-    error?: IHttpError;
+interface State extends Inputs {
+    error?: HttpError;
     submittingData: boolean;
 }
 
-export class NewCustomerPage extends React.Component<any, IState> {
+export class NewCustomerPage extends React.Component<any, State> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -35,7 +35,7 @@ export class NewCustomerPage extends React.Component<any, IState> {
         const name = target.name;
         this.setState({
             [name]: value
-        } as Pick<IInputs, keyof IInputs>);
+        } as Pick<Inputs, keyof Inputs>);
     }
 
     handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -53,7 +53,7 @@ export class NewCustomerPage extends React.Component<any, IState> {
             });
             this.props.router.push('/customers/list/');
         }
-        const errorHandler = (httpError: IHttpError) => {
+        const errorHandler = (httpError: HttpError) => {
             this.setState({
                 submittingData: false,
                 error: httpError

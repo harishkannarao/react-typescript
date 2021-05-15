@@ -5,15 +5,27 @@ import { withRouter } from 'next/router'
 import { listCustomers, deleteCustomer } from "../../components/common/customer";
 import { getParameterByName } from "../../components/common/query_param"
 import { CustomerList } from "../../components/customer/customer";
+import { HttpError } from '../../components/model/http_error';
+import { Customer } from '../../components/model/customer';
 
+interface Inputs {
+    inputFirstName: string;
+}
 
-export class CustomersListPage extends React.Component<any, any> {
+interface State extends Inputs {
+    firstNameTypingTimeout?: any,
+    error?: HttpError,
+    isProcessing: boolean,
+    data: Customer[]
+}
+
+export class CustomersListPage extends React.Component<any, State> {
     constructor(props: any) {
         super(props);
         this.state = {
             inputFirstName: '',
-            firstNameTypingTimeout: null,
-            error: null,
+            firstNameTypingTimeout: undefined,
+            error: undefined,
             isProcessing: false,
             data: []
         };
@@ -23,7 +35,7 @@ export class CustomersListPage extends React.Component<any, any> {
         this.fetchData = this.fetchData.bind(this);
     }
 
-    handleFirstNameChange(event: any) {
+    handleFirstNameChange(event: React.ChangeEvent<HTMLInputElement>) {
         event.preventDefault();
         if (this.state.firstNameTypingTimeout) {
             clearTimeout(this.state.firstNameTypingTimeout);
@@ -47,14 +59,14 @@ export class CustomersListPage extends React.Component<any, any> {
         this.props.router.push(url, undefined, { shallow: true });
     }
 
-    errorHandler(httpError: any) {
+    errorHandler(httpError: HttpError) {
         this.setState({
             isProcessing: false,
             error: httpError
         });
     }
 
-    handleDeleteCustomer(event: any) {
+    handleDeleteCustomer(event: React.ChangeEvent<HTMLInputElement>) {
         event.preventDefault();
         this.setState({
             isProcessing: true
@@ -74,7 +86,7 @@ export class CustomersListPage extends React.Component<any, any> {
             this.setState({
                 isProcessing: false,
                 data: result.data,
-                error: null,
+                error: undefined,
             });
         }
         var resolvedFirstName = firstName;
