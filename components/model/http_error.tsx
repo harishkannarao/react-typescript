@@ -1,3 +1,5 @@
+import { AxiosResponse } from "axios";
+
 export interface HttpError<R = any>{
-    response: R;
+    response: AxiosResponse<R>;
 }
