@@ -1,4 +1,10 @@
-export function Footer(props) {
+import { NextRouter } from "next/router";
+
+interface FooterProps {
+    router: NextRouter;
+}
+
+export function Footer(props: FooterProps) {
     const router = props.router;
     return (
         <footer className="bg-light text-center text-lg-start">

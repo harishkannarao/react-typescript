@@ -1,12 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/global.css'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import { Footer } from '../components/footer/common-footer'
 import { AppProps } from 'next/app'
 
 function App({ Component, pageProps }: AppProps) {
-    const router = useRouter();
+    const router: NextRouter = useRouter();
     return (
         <>
             <Head>
