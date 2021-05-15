@@ -3,12 +3,23 @@ import Head from 'next/head'
 import { withRouter } from 'next/router'
 import Link from 'next/link'
 import { createCustomer } from '../../components/common/customer'
+import { IHttpError } from '../../components/common/http_error'
 
-export class NewCustomerPage extends React.Component<any, any> {
+interface IInputs {
+    inputFirstName: string;
+    inputLastName: string;
+}
+
+interface IState extends IInputs {
+    error?: IHttpError;
+    submittingData: boolean;
+}
+
+export class NewCustomerPage extends React.Component<any, IState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            error: null,
+            error: undefined,
             inputFirstName: '',
             inputLastName: '',
             submittingData: false
@@ -17,32 +28,32 @@ export class NewCustomerPage extends React.Component<any, any> {
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
-    handleInputChange(event: any) {
+    handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
         event.preventDefault();
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
         this.setState({
             [name]: value
-        });
+        } as Pick<IInputs, keyof IInputs>);
     }
 
-    handleSubmit(event: any) {
+    handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         this.setState({
             submittingData: true,
-            error: null
+            error: undefined
         })
         const successHandler = (result: any) => {
             this.setState({
                 inputFirstName: '',
                 inputLastName: '',
                 submittingData: false,
-                error: null
+                error: undefined
             });
             this.props.router.push('/customers/list/');
         }
-        const errorHandler = (httpError: any) => {
+        const errorHandler = (httpError: IHttpError) => {
             this.setState({
                 submittingData: false,
                 error: httpError
