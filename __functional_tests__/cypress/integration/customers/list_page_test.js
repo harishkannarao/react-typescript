@@ -103,21 +103,25 @@ describe('Test Customer List Page', () => {
             {
                 statusCode: 200,
                 delay: 0,
-                body: []
+                body: [
+                    {
+                        id: 1,
+                        firstName: 'test-first-name-1',
+                        lastName: 'test-last-name-1'
+                    }
+                ]
             }
         )
         
         cy.visit("/customers/list/");
 
-        cy.getByTestId("processing-content").should('not.exist');
+        cy.getByTestId("firstName").eq(0).should('have.text', 'test-first-name-1');
 
-        cy.getByTestId("go-to-bottom-link").should('exist');
-
-        cy.getByTestId("go-to-bottom-link").click();
+        cy.getByTestId("go-to-bottom-link").should('be.visible').click();
 
         cy.hash().should('eq', '#customer-table-bottom');
 
-        cy.getByTestId("go-to-top-link").click();
+        cy.getByTestId("go-to-top-link").should('be.visible').click();
 
         cy.hash().should('eq', '#customer-table-top');
     });
