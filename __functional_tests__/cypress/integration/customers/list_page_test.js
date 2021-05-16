@@ -112,7 +112,7 @@ describe('Test Customer List Page', () => {
                 ]
             }
         )
-        
+
         cy.visit("/customers/list/");
 
         cy.getByTestId("firstName").eq(0).should('have.text', 'test-first-name-1');
@@ -127,17 +127,23 @@ describe('Test Customer List Page', () => {
     });
 
     it('prefills first name, title and search customer from query param', () => {
-        cy.intercept('GET', Cypress.env('CUSTOMER_API_BASE_URL') + '/customers', (req) => {
+        cy.intercept({
+            method: 'GET',
+            url: Cypress.env('CUSTOMER_API_BASE_URL') + '/customers*',
+            query: {
+                firstName: 'test-first-name'
+            }
+        }, (req) => {
             req.alias = 'listCustomers';
             req.reply(
                 {
                     statusCode: 200,
-                    delay: 0,
+                    delay: 500,
                     body: []
                 }
             );
         });
-        
+
         cy.visit("/customers/list/?firstName=test-first-name");
 
         cy.getByTestId("success-content").should('exist');
@@ -153,7 +159,10 @@ describe('Test Customer List Page', () => {
 
     it('changing first name should change title, query param and search result', () => {
         var requestCount = 0;
-        cy.intercept('GET', Cypress.env('CUSTOMER_API_BASE_URL') + '/customers', (req) => {
+        cy.intercept({
+            method: 'GET',
+            url: Cypress.env('CUSTOMER_API_BASE_URL') + '/customers*'
+        }, (req) => {
             req.alias = 'listCustomers-' + requestCount;
             requestCount += 1;
             req.reply(
@@ -164,7 +173,7 @@ describe('Test Customer List Page', () => {
                 }
             );
         });
-        
+
         cy.visit("/customers/list/");
 
         cy.getByTestId("success-content").should('exist');
@@ -202,7 +211,7 @@ describe('Test Customer List Page', () => {
                 }
             );
         });
-        
+
         cy.visit("/customers/list/?firstName=test-first-name");
 
         cy.getByTestId("success-content").should('exist');

@@ -30,7 +30,7 @@ describe('Test New Customer Page', () => {
             );
         });
 
-        cy.intercept(Cypress.env('CUSTOMER_API_BASE_URL') + '/customers',
+        cy.intercept('GET', Cypress.env('CUSTOMER_API_BASE_URL') + '/customers',
             {
                 statusCode: 200,
                 delay: 0,
