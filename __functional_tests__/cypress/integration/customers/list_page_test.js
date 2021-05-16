@@ -129,7 +129,8 @@ describe('Test Customer List Page', () => {
     it('prefills first name, title and search customer from query param', () => {
         cy.intercept({
             method: 'GET',
-            url: Cypress.env('CUSTOMER_API_BASE_URL') + '/customers*',
+            url: cy.myFunctions.createCustomerApiUrlMatcher(),
+            pathname: '/customers',
             query: {
                 firstName: 'test-first-name'
             }
@@ -161,7 +162,8 @@ describe('Test Customer List Page', () => {
         var requestCount = 0;
         cy.intercept({
             method: 'GET',
-            url: Cypress.env('CUSTOMER_API_BASE_URL') + '/customers*'
+            url: cy.myFunctions.createCustomerApiUrlMatcher(),
+            pathname: '/customers',
         }, (req) => {
             req.alias = 'listCustomers-' + requestCount;
             requestCount += 1;
