@@ -49,6 +49,10 @@ or
 
     npm run cypress:run-ci
 
+### Filter Cypress test by name
+
+    npm run cypress -- --env grep="tests jump to bottom and top"
+
 ### Run CI tests
 
     ./ci-build.sh
