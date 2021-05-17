@@ -3,7 +3,8 @@ import Head from 'next/head'
 import { withRouter } from 'next/router'
 import Link from 'next/link'
 import { createCustomer } from '../../components/common/customer'
-import { HttpError } from '../../components/model/http_error'
+import { Error } from "../../components/error/error";
+import { AxiosError } from 'axios';
 
 interface Inputs {
     inputFirstName: string;
@@ -11,7 +12,7 @@ interface Inputs {
 }
 
 interface State extends Inputs {
-    error?: HttpError;
+    error?: Error | AxiosError<any>;
     submittingData: boolean;
 }
 
@@ -53,7 +54,7 @@ export class NewCustomerPage extends React.Component<any, State> {
             });
             this.props.router.push('/customers/list/');
         }
-        const errorHandler = (httpError: HttpError) => {
+        const errorHandler = (httpError: Error | AxiosError<any>) => {
             this.setState({
                 submittingData: false,
                 error: httpError
@@ -80,7 +81,7 @@ export class NewCustomerPage extends React.Component<any, State> {
                             <div data-testid="submitting-content">Submitting...</div>
                         ) : (
                             this.state.error && (
-                                <div data-testid="error-content">"An error has occurred: " + {JSON.stringify(this.state.error.response)}</div>
+                                <Error error={this.state.error} />
                             )
                         )
                 }

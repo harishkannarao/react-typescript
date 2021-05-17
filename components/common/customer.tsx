@@ -1,9 +1,8 @@
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { CustomerModel } from "../customer/customer";
-import { HttpError } from "../model/http_error";
 import { executeGet, executePost, executeDelete } from "./api";
 
-export function listCustomers(firstName: string | null, successHandler: (res: AxiosResponse<CustomerModel[]>) => void, errorHandler: (err: HttpError<any>) => void) {
+export function listCustomers(firstName: string | null, successHandler: (res: AxiosResponse<CustomerModel[]>) => void, errorHandler: (err: Error | AxiosError<any>) => void) {
     const query = new URLSearchParams();
     if (firstName != null && firstName != '') {
         query.append('firstName', firstName);
@@ -16,7 +15,7 @@ export function listCustomers(firstName: string | null, successHandler: (res: Ax
     );
 }
 
-export function createCustomer(data: { firstName: string; lastName: string; }, successHandler: (res: AxiosResponse<any>) => void, errorHandler: (err: HttpError<any>) => void) {
+export function createCustomer(data: { firstName: string; lastName: string; }, successHandler: (res: AxiosResponse<any>) => void, errorHandler: (err: Error | AxiosError<any>) => void) {
     executePost(
         process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers", 
         data, 
@@ -25,7 +24,7 @@ export function createCustomer(data: { firstName: string; lastName: string; }, s
     );
 }
 
-export function deleteCustomer(data: {id: number}, successHandler: (res: AxiosResponse<any>) => void, errorHandler: (err: HttpError<any>) => void) {
+export function deleteCustomer(data: {id: number}, successHandler: (res: AxiosResponse<any>) => void, errorHandler: (err: Error | AxiosError<any>) => void) {
     executeDelete(
         process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers", 
         data, 

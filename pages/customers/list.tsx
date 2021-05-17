@@ -5,7 +5,8 @@ import { withRouter } from 'next/router'
 import { listCustomers, deleteCustomer } from "../../components/common/customer";
 import { getParameterByName } from "../../components/common/query_param"
 import { CustomerModel, CustomerList } from "../../components/customer/customer";
-import { HttpError } from '../../components/model/http_error';
+import { Error } from "../../components/error/error";
+import { AxiosError } from 'axios';
 
 interface Inputs {
     inputFirstName: string;
@@ -13,7 +14,7 @@ interface Inputs {
 
 interface State extends Inputs {
     firstNameTypingTimeout?: any,
-    error?: HttpError,
+    error?: Error | AxiosError<any>,
     isProcessing: boolean,
     data: CustomerModel[]
 }
@@ -58,7 +59,7 @@ export class CustomersListPage extends React.Component<any, State> {
         this.props.router.push(url, undefined, { shallow: true });
     }
 
-    errorHandler(httpError: HttpError) {
+    errorHandler(httpError: Error | AxiosError<any>) {
         this.setState({
             isProcessing: false,
             error: httpError
@@ -133,7 +134,7 @@ export class CustomersListPage extends React.Component<any, State> {
                 </h3>
                 {
                     !this.state.isProcessing && this.state.error &&
-                    <div data-testid="error-content">"An error has occurred: " + {JSON.stringify(this.state.error.response)}</div>
+                    <Error error={this.state.error} />
                 }
                 <label>
                     First Name:
