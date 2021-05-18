@@ -1,12 +1,12 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { Error as ErrorComponent } from "../../../components/error/error"
+import { DisplayError } from "../../../components/error/error"
 
 describe('Error Component test', () => {
     test('displays general error message', async () => {
         const error = new Error("unit-test-error")
         render(
-            <ErrorComponent error={error} />
+            <DisplayError error={error} />
         )
         expect(screen.queryByTestId('error-content').textContent).toContain('unit-test-error');
     });
@@ -19,7 +19,7 @@ describe('Error Component test', () => {
             }
         }
         render(
-            <ErrorComponent error={error} />
+            <DisplayError error={error} />
         )
         expect(screen.queryByTestId('error-content').textContent).toContain('unit-test-axios-error');
     });

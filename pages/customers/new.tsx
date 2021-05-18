@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { withRouter } from 'next/router'
 import Link from 'next/link'
 import { createCustomer } from '../../components/common/customer'
-import { Error } from "../../components/error/error";
+import { DisplayError } from "../../components/error/error";
 import { AxiosError } from 'axios';
 
 interface Inputs {
@@ -81,7 +81,7 @@ export class NewCustomerPage extends React.Component<any, State> {
                             <div data-testid="submitting-content">Submitting...</div>
                         ) : (
                             this.state.error && (
-                                <Error error={this.state.error} />
+                                <DisplayError error={this.state.error} />
                             )
                         )
                 }

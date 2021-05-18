@@ -5,7 +5,7 @@ import { withRouter } from 'next/router'
 import { listCustomers, deleteCustomer } from "../../components/common/customer";
 import { getParameterByName } from "../../components/common/query_param"
 import { CustomerModel, CustomerList } from "../../components/customer/customer";
-import { Error } from "../../components/error/error";
+import { DisplayError } from "../../components/error/error";
 import { AxiosError } from 'axios';
 
 interface Inputs {
@@ -134,7 +134,7 @@ export class CustomersListPage extends React.Component<any, State> {
                 </h3>
                 {
                     !this.state.isProcessing && this.state.error &&
-                    <Error error={this.state.error} />
+                    <DisplayError error={this.state.error} />
                 }
                 <label>
                     First Name:

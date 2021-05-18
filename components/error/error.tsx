@@ -1,6 +1,6 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 
-export function Error<T = any>(props: {error: Error | AxiosError<T>}) {
+export function DisplayError<T = any>(props: {error: Error | AxiosError<T>}) {
     let errorMessage = (props.error as Error).message;
     if ((props.error as AxiosError).isAxiosError) {
         let axiosError = props.error as AxiosError
