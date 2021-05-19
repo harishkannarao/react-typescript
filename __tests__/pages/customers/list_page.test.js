@@ -125,15 +125,7 @@ describe('CustomersListPage Component test', () => {
         );
 
         const mockRouter = createMockRouter()
-        let receivedUrl = null;
-        let receivedAs = null;
-        let receivedOptions = null;
-        mockRouter.push = function (url, as, options) {
-            receivedUrl = url;
-            receivedAs = as;
-            receivedOptions = options;
-            return;
-        }
+        mockRouter.push = jest.fn()
         mockRouter.pathname = 'test-path-name';
         mockRouter.query = {
             firstName: 'test-old-first-name',
@@ -156,11 +148,12 @@ describe('CustomersListPage Component test', () => {
         await waitFor(() => expect(callCount).toBe(2));
         await waitFor(() => expect(receivedFirstName).toBe('test-first-name'));
 
-        expect(receivedUrl.pathname).toBe("test-path-name");
-        expect(receivedUrl.query.firstName).toBe("test-first-name");
-        expect(receivedUrl.query.someOtherQuery).toBe("test-query");
-        expect(receivedAs).toBeUndefined();
-        expect(receivedOptions.shallow).toBe(true);
+        expect(mockRouter.push.mock.calls.length).toBe(1);
+        expect(mockRouter.push.mock.calls[0][0].pathname).toBe("test-path-name");
+        expect(mockRouter.push.mock.calls[0][0].query.firstName).toBe("test-first-name");
+        expect(mockRouter.push.mock.calls[0][0].query.someOtherQuery).toBe("test-query");
+        expect(mockRouter.push.mock.calls[0][1]).toBeUndefined();
+        expect(mockRouter.push.mock.calls[0][2].shallow).toBe(true);
     })
 
     test('does not filter customers by first name given empty input and removes first name from query', async () => {
@@ -180,15 +173,7 @@ describe('CustomersListPage Component test', () => {
         );
 
         const mockRouter = createMockRouter()
-        let receivedUrl = null;
-        let receivedAs = null;
-        let receivedOptions = null;
-        mockRouter.push = function (url, as, options) {
-            receivedUrl = url;
-            receivedAs = as;
-            receivedOptions = options;
-            return;
-        }
+        mockRouter.push = jest.fn()
         mockRouter.pathname = 'test-path-name';
         mockRouter.query = {
             firstName: 'test-old-first-name',
@@ -211,11 +196,12 @@ describe('CustomersListPage Component test', () => {
         await waitFor(() => expect(callCount).toBe(2));
         await waitFor(() => expect(receivedFirstName).toBeNull());
 
-        expect(receivedUrl.pathname).toBe("test-path-name");
-        expect(receivedUrl.query.firstName).toBeUndefined();
-        expect(receivedUrl.query.someOtherQuery).toBe("test-query");
-        expect(receivedAs).toBeUndefined();
-        expect(receivedOptions.shallow).toBe(true);
+        expect(mockRouter.push.mock.calls.length).toBe(1);
+        expect(mockRouter.push.mock.calls[0][0].pathname).toBe("test-path-name");
+        expect(mockRouter.push.mock.calls[0][0].query.firstName).toBeUndefined();
+        expect(mockRouter.push.mock.calls[0][0].query.someOtherQuery).toBe("test-query");
+        expect(mockRouter.push.mock.calls[0][1]).toBeUndefined();
+        expect(mockRouter.push.mock.calls[0][2].shallow).toBe(true);
     })
 
     test('displays empty customers', async () => {
