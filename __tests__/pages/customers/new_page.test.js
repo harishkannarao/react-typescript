@@ -8,6 +8,7 @@ import { NewCustomerPage } from "../../../pages/customers/new";
 
 describe('NewCustomerPage Component test', () => {
     beforeEach(() => {
+        jest.clearAllMocks();
         server.use(
             rest.post(process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers", (req, res, ctx) => {
                 return res(
@@ -17,14 +18,12 @@ describe('NewCustomerPage Component test', () => {
         );
     });
 
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
     test('navigation links', async () => {
-        var redirectUrl = null;
-        const mockRouter = createMockRouter()
-        mockRouter.push = function(url, as, options) {
-            redirectUrl = url;
-            return;
-        }
-        render(<NewCustomerPage router={mockRouter} />);
+        render(<NewCustomerPage router={createMockRouter()} />);
         expect(screen.queryByTestId('home-link').getAttribute("href")).toBe('/');
         expect(screen.queryByTestId('list-customers-link').getAttribute("href")).toBe('/customers/list');
         expect(screen.queryByTestId('cancel-button').getAttribute("href")).toBe('/customers/list');
@@ -43,12 +42,8 @@ describe('NewCustomerPage Component test', () => {
             }),
         );
 
-        var redirectUrl = null;
         const mockRouter = createMockRouter()
-        mockRouter.push = function(url, as, options) {
-            redirectUrl = url;
-            return;
-        }
+        mockRouter.push = jest.fn()
         render(<NewCustomerPage router={mockRouter} />);
         expect(screen.queryByTestId('first-name').getAttribute("value")).toBe('');
         expect(screen.queryByTestId('last-name').getAttribute("value")).toBe('');
@@ -60,7 +55,8 @@ describe('NewCustomerPage Component test', () => {
         expect(screen.queryByTestId('submitting-content')).not.toBeNull();
         await waitFor(() => expect(screen.queryByTestId('submitting-content')).toBeNull());
 
-        await waitFor(() => expect(redirectUrl).toBe('/customers/list/'));
+        await waitFor(() => expect(mockRouter.push.mock.calls.length).toBe(1));
+        await waitFor(() => expect(mockRouter.push.mock.calls[0][0]).toBe('/customers/list/'));
 
         await waitFor(() => expect(requestJson).not.toBeNull());
         expect(requestJson.firstName).toBe('test-first-name');
