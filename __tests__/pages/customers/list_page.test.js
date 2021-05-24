@@ -22,7 +22,7 @@ describe('CustomersListPage Component test', () => {
             if(param == 'firstName') {
                 return 'test-first-name';
             } else {
-                return 'unexpected-value';
+                throw new Error("Unexpected param: " + param);
             }
         });
 
@@ -45,7 +45,7 @@ describe('CustomersListPage Component test', () => {
             if(param == 'firstName') {
                 return 'test-first-name';
             } else {
-                return 'unexpected-value';
+                throw new Error("Unexpected param: " + param);
             }
         });
 
