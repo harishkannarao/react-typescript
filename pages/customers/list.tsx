@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
 import { listCustomers, deleteCustomer } from "../../components/common/customer";
-import { getParameterByName } from "../../components/common/query_param"
+import * as queryParamModule from "../../components/common/query_param"
 import { CustomerModel, CustomerList } from "../../components/customer/customer";
 import { DisplayError } from "../../components/error/error";
 import { AxiosError } from 'axios';
@@ -97,7 +97,7 @@ export class CustomersListPage extends React.Component<any, State> {
     }
 
     componentDidMount() {
-        var firstName: string | null = getParameterByName("firstName");
+        var firstName: string | null = queryParamModule.getParameterByName("firstName");
         if (firstName != null) {
             this.setState({
                 'inputFirstName': firstName
