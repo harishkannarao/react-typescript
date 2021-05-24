@@ -3,28 +3,28 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { server } from '../../server'
 import { createMockRouter } from "../../mock_router";
 import { rest } from 'msw'
+import * as queryParamModule from "../../../components/common/query_param"
 
 import { CustomersListPage } from "../../../pages/customers/list";
 
 describe('CustomersListPage Component test', () => {
-    const { location } = window;
-
     beforeEach(() => {
-        delete window.location;
-        window.location = {
-            href: 'https://www.example.com',
-        };
+        jest.clearAllMocks();
+        queryParamModule.getParameterByName = jest.fn();
     });
 
     afterEach(() => {
-        window.location = location;
+        jest.clearAllMocks();
     });
 
     test('prefilling firstName search from query param', async () => {
-
-        window.location = {
-            href: 'https://www.example.com?firstName=test-first-name',
-        };
+        queryParamModule.getParameterByName.mockImplementation((param) => {
+            if(param == 'firstName') {
+                return 'test-first-name';
+            } else {
+                return 'unexpected-value';
+            }
+        });
 
         server.use(
             rest.get(process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers", (req, res, ctx) => {
@@ -41,9 +41,13 @@ describe('CustomersListPage Component test', () => {
     });
 
     test('display customers filtered by first name from query', async () => {
-        window.location = {
-            href: 'https://www.example.com?firstName=test-first-name',
-        };
+        queryParamModule.getParameterByName.mockImplementation((param) => {
+            if(param == 'firstName') {
+                return 'test-first-name';
+            } else {
+                return 'unexpected-value';
+            }
+        });
 
         var receivedFirstName = null;
         server.use(
