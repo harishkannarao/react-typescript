@@ -31,7 +31,7 @@ describe('NewCustomerPage Component test', () => {
 
     test('new customer creation', async () => {
         const apiUrl = process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers"
-        var requestJson = null;
+        let requestJson = null;
         server.use(
             rest.post(apiUrl, (req, res, ctx) => {
                 requestJson = req.body

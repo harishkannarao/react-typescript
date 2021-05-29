@@ -47,7 +47,7 @@ describe('Test New Customer Page', () => {
         cy.getByTestId("submitting-content").should('exist');
 
         cy.wait('@createCustomer').then((interception) => {
-            var reqJson = interception.request.body;
+            let reqJson = interception.request.body;
             expect(reqJson.firstName).to.equal('test-first-name');
             expect(reqJson.lastName).to.equal('test-last-name');
         });

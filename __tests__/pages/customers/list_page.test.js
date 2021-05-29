@@ -53,7 +53,7 @@ describe('CustomersListPage Component test', () => {
             }
         });
 
-        var receivedFirstName = null;
+        let receivedFirstName = null;
         server.use(
             rest.get(process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers", (req, res, ctx) => {
                 receivedFirstName = req.url.searchParams.get('firstName');
@@ -96,7 +96,7 @@ describe('CustomersListPage Component test', () => {
                 lastName: 'test-last-name-2'
             }
         ]
-        var receivedRequest = null;
+        let receivedRequest = null;
         server.use(
             rest.get(apiUrl, (req, res, ctx) => {
                 receivedRequest = req;
@@ -125,8 +125,8 @@ describe('CustomersListPage Component test', () => {
     });
 
     test('filters customers and update query on change of first name search', async () => {
-        var callCount = 0;
-        var receivedFirstName = null;
+        let callCount = 0;
+        let receivedFirstName = null;
         server.use(
             rest.get(process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers", (req, res, ctx) => {
                 callCount += 1;
@@ -172,8 +172,8 @@ describe('CustomersListPage Component test', () => {
     })
 
     test('does not filter customers by first name given empty input and removes first name from query', async () => {
-        var callCount = 0;
-        var receivedFirstName = null;
+        let callCount = 0;
+        let receivedFirstName = null;
         server.use(
             rest.get(process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers", (req, res, ctx) => {
                 callCount += 1;
@@ -302,8 +302,8 @@ describe('CustomersListPage Component test', () => {
     });
 
     test('customer deletion', async () => {
-        var listCustomersCount = 0;
-        var deleteRequestJson = null;
+        let listCustomersCount = 0;
+        let deleteRequestJson = null;
         server.use(
             rest.get(process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers", (req, res, ctx) => {
                 listCustomersCount = listCustomersCount + 1;

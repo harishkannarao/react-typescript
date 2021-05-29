@@ -45,7 +45,7 @@ describe('Test Customer List Page', () => {
     });
 
     it('Deletes customer', () => {
-        var listCustomersCount = 0;
+        let listCustomersCount = 0;
         cy.intercept('GET', Cypress.env('CUSTOMER_API_BASE_URL') + '/customers', (req) => {
             req.alias = 'listCustomers-' + listCustomersCount;
             listCustomersCount = listCustomersCount + 1;
@@ -93,7 +93,7 @@ describe('Test Customer List Page', () => {
         cy.wait('@listCustomers-1');
 
         cy.wait('@deleteCustomer').then((interception) => {
-            var reqJson = interception.request.body;
+            let reqJson = interception.request.body;
             expect(reqJson.id).to.equal(2);
         });
     });
@@ -159,7 +159,7 @@ describe('Test Customer List Page', () => {
     })
 
     it('changing first name should change title, query param and search result', () => {
-        var requestCount = 0;
+        let requestCount = 0;
         cy.intercept({
             method: 'GET',
             url: cy.myFunctions.createCustomerApiUrlMatcher(),
