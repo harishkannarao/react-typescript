@@ -89,31 +89,31 @@ export function CustomersListPage() {
 
     return (
         <div>
-                <Head>
-                    <title>{title}</title>
-                </Head>
-                <h3>
-                    <Link href="/">
-                        <a data-testid="home-link">Home</a>
-                    </Link>
-                </h3>
-                <h3>
-                    <Link href="/customers/new/">
-                        <a data-testid="new-customer-link">New - Customer</a>
-                    </Link>
-                </h3>
-                {
-                    !isProcessing && error &&
-                    <DisplayError error={error} />
-                }
-                <label>
-                    First Name:
+            <Head>
+                <title>{title}</title>
+            </Head>
+            <h3>
+                <Link href="/">
+                    <a data-testid="home-link">Home</a>
+                </Link>
+            </h3>
+            <h3>
+                <Link href="/customers/new/">
+                    <a data-testid="new-customer-link">New - Customer</a>
+                </Link>
+            </h3>
+            {
+                !isProcessing && error &&
+                <DisplayError error={error} />
+            }
+            <label>
+                First Name:
                         <input data-testid="input-first-name" name="inputFirstName" type="text"
-                        value={inputFirstName}
-                        onChange={handleFirstNameChange} />
-                </label>
-                <CustomerList router={router} isProcessing={isProcessing} handleDeleteCustomer={handleDeleteCustomer} data={data} />
-            </div>
+                    value={inputFirstName}
+                    onChange={handleFirstNameChange} />
+            </label>
+            <CustomerList router={router} isProcessing={isProcessing} handleDeleteCustomer={handleDeleteCustomer} data={data} />
+        </div>
     )
 }
 

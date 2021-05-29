@@ -21,7 +21,7 @@ describe('CustomersListPage Component test', () => {
 
     test('prefilling firstName search from query param', async () => {
         queryParamModule.getParameterByName.mockImplementation((param) => {
-            if(param == 'firstName') {
+            if (param == 'firstName') {
                 return 'test-first-name';
             } else {
                 throw new Error("Unexpected param: " + param);
@@ -46,7 +46,7 @@ describe('CustomersListPage Component test', () => {
 
     test('display customers filtered by first name from query', async () => {
         queryParamModule.getParameterByName.mockImplementation((param) => {
-            if(param == 'firstName') {
+            if (param == 'firstName') {
                 return 'test-first-name';
             } else {
                 throw new Error("Unexpected param: " + param);
@@ -196,7 +196,7 @@ describe('CustomersListPage Component test', () => {
             someOtherQuery: 'test-query'
         };
 
-        render(<CustomersListPage/>);
+        render(<CustomersListPage />);
 
         await screen.findByTestId('success-content');
 
