@@ -4,6 +4,7 @@ import { server } from '../../server'
 import { createMockRouter } from "../../mock_router";
 import { rest } from 'msw'
 import * as queryParamModule from "../../../components/common/query_param"
+import * as nextRouterModule from "next/router"
 
 import { CustomersListPage } from "../../../pages/customers/list";
 
@@ -11,6 +12,7 @@ describe('CustomersListPage Component test', () => {
     beforeEach(() => {
         jest.clearAllMocks();
         queryParamModule.getParameterByName = jest.fn();
+        nextRouterModule.useRouter = jest.fn();
     });
 
     afterEach(() => {
@@ -34,8 +36,10 @@ describe('CustomersListPage Component test', () => {
                 )
             }),
         );
+        let mockRouter = createMockRouter();
+        nextRouterModule.useRouter.mockImplementation(() => mockRouter);
 
-        render(<CustomersListPage router={createMockRouter()} />);
+        render(<CustomersListPage />);
         await screen.findByTestId('success-content');
         expect(screen.getByTestId('input-first-name').getAttribute('value')).toBe('test-first-name');
     });
@@ -68,7 +72,10 @@ describe('CustomersListPage Component test', () => {
             }),
         );
 
-        render(<CustomersListPage router={createMockRouter()} />);
+        let mockRouter = createMockRouter();
+        nextRouterModule.useRouter.mockImplementation(() => mockRouter);
+
+        render(<CustomersListPage />);
 
         await screen.findByTestId('success-content');
         expect(screen.getAllByTestId('id')[0].textContent).toBe('1');
@@ -100,7 +107,10 @@ describe('CustomersListPage Component test', () => {
             }),
         );
 
-        render(<CustomersListPage router={createMockRouter()} />)
+        let mockRouter = createMockRouter();
+        nextRouterModule.useRouter.mockImplementation(() => mockRouter);
+
+        render(<CustomersListPage />)
         await screen.findByTestId('success-content');
 
         expect(screen.getAllByTestId('id')[0].textContent).toBe('1');
@@ -128,7 +138,8 @@ describe('CustomersListPage Component test', () => {
             }),
         );
 
-        const mockRouter = createMockRouter()
+        let mockRouter = createMockRouter();
+        nextRouterModule.useRouter.mockImplementation(() => mockRouter);
         mockRouter.push = jest.fn()
         mockRouter.pathname = 'test-path-name';
         mockRouter.query = {
@@ -136,7 +147,7 @@ describe('CustomersListPage Component test', () => {
             someOtherQuery: 'test-query'
         };
 
-        render(<CustomersListPage router={mockRouter} />);
+        render(<CustomersListPage />);
 
         await screen.findByTestId('success-content');
 
@@ -176,7 +187,8 @@ describe('CustomersListPage Component test', () => {
             }),
         );
 
-        const mockRouter = createMockRouter()
+        let mockRouter = createMockRouter();
+        nextRouterModule.useRouter.mockImplementation(() => mockRouter);
         mockRouter.push = jest.fn()
         mockRouter.pathname = 'test-path-name';
         mockRouter.query = {
@@ -184,7 +196,7 @@ describe('CustomersListPage Component test', () => {
             someOtherQuery: 'test-query'
         };
 
-        render(<CustomersListPage router={mockRouter} />);
+        render(<CustomersListPage/>);
 
         await screen.findByTestId('success-content');
 
@@ -217,8 +229,10 @@ describe('CustomersListPage Component test', () => {
                 )
             }),
         );
+        let mockRouter = createMockRouter();
+        nextRouterModule.useRouter.mockImplementation(() => mockRouter);
 
-        render(<CustomersListPage router={createMockRouter()} />)
+        render(<CustomersListPage />)
         await screen.findByTestId('success-content');
         expect(screen.queryByTestId('id')).toBeNull();
     });
@@ -236,8 +250,10 @@ describe('CustomersListPage Component test', () => {
                 )
             }),
         );
+        let mockRouter = createMockRouter();
+        nextRouterModule.useRouter.mockImplementation(() => mockRouter);
 
-        render(<CustomersListPage router={createMockRouter()} />)
+        render(<CustomersListPage />)
         await screen.findByTestId('error-content');
         expect(screen.queryByTestId('error-content').textContent).toContain('unit-test-error');
         expect(screen.queryByTestId('error-content').textContent).toContain('Internal Server Error');
@@ -257,8 +273,10 @@ describe('CustomersListPage Component test', () => {
                 )
             }),
         );
+        let mockRouter = createMockRouter();
+        nextRouterModule.useRouter.mockImplementation(() => mockRouter);
 
-        render(<CustomersListPage router={createMockRouter()} />)
+        render(<CustomersListPage />)
         expect(screen.queryByTestId('processing-content').textContent).toContain('Processing...');
         await screen.findByTestId('error-content', {}, { 'timeout': 2000 });
     });
@@ -273,8 +291,10 @@ describe('CustomersListPage Component test', () => {
                 )
             }),
         );
+        let mockRouter = createMockRouter();
+        nextRouterModule.useRouter.mockImplementation(() => mockRouter);
 
-        render(<CustomersListPage router={createMockRouter()} />)
+        render(<CustomersListPage />)
         await screen.findByTestId('success-content');
 
         expect(screen.queryByTestId('home-link').getAttribute("href")).toBe('/');
@@ -314,7 +334,10 @@ describe('CustomersListPage Component test', () => {
             }),
         );
 
-        render(<CustomersListPage router={createMockRouter()} />)
+        let mockRouter = createMockRouter();
+        nextRouterModule.useRouter.mockImplementation(() => mockRouter);
+
+        render(<CustomersListPage />)
         await screen.findByTestId('success-content');
         expect(listCustomersCount).toBe(1);
 
@@ -351,8 +374,10 @@ describe('CustomersListPage Component test', () => {
                 )
             }),
         );
+        let mockRouter = createMockRouter();
+        nextRouterModule.useRouter.mockImplementation(() => mockRouter);
 
-        render(<CustomersListPage router={createMockRouter()} />)
+        render(<CustomersListPage />)
         await screen.findByTestId('success-content');
 
         fireEvent.click(screen.getAllByTestId("delete-button")[0]);

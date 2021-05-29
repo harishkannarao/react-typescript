@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Router } from 'next/router'
+import { Router, NextRouter } from 'next/router'
 
 export interface CustomerModel {
     id: string;
@@ -25,7 +25,7 @@ export function Customer(props: CustomerProps) {
 
 interface CustomerListProps {
     isProcessing: boolean;
-    router: Router;
+    router: Router | NextRouter;
     data: CustomerModel[];
     handleDeleteCustomer: (event: React.MouseEvent<HTMLInputElement>) => void;
 }

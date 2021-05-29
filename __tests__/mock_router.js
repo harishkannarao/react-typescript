@@ -3,8 +3,7 @@ export function createMockRouter() {
         pathname: '',
         basePath: '',
         query: {},
-        push: function(url, as, options) {
-            return;
-        }
+        push: jest.fn(),
+        prefetch: jest.fn(() => Promise.resolve()),
     }
 }
