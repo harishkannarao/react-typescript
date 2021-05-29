@@ -72,7 +72,7 @@ export function CustomersListPage() {
     }
 
     useEffect(() => {
-        var firstName: string | null = queryParamModule.getParameterByName("firstName");
+        let firstName: string | null = queryParamModule.getParameterByName("firstName");
         if (firstName != null) {
             setInputFirstName(firstName);
             if (firstName.trim() != '') {
