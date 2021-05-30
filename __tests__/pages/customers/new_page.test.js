@@ -1,14 +1,16 @@
 import React from 'react'
-import { render, fireEvent, waitFor, waitForElementToBeRemoved, screen } from '@testing-library/react'
+import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import { server } from '../../server'
 import { rest } from 'msw'
 import { createMockRouter } from "../../mock_router";
+import * as nextRouterModule from "next/router"
 
 import { NewCustomerPage } from "../../../pages/customers/new";
 
 describe('NewCustomerPage Component test', () => {
     beforeEach(() => {
         jest.clearAllMocks();
+        nextRouterModule.useRouter = jest.fn();
         server.use(
             rest.post(process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers", (req, res, ctx) => {
                 return res(
@@ -23,7 +25,8 @@ describe('NewCustomerPage Component test', () => {
     });
 
     test('navigation links', async () => {
-        render(<NewCustomerPage router={createMockRouter()} />);
+        nextRouterModule.useRouter.mockReturnValue(createMockRouter());
+        render(<NewCustomerPage />);
         expect(screen.queryByTestId('home-link').getAttribute("href")).toBe('/');
         expect(screen.queryByTestId('list-customers-link').getAttribute("href")).toBe('/customers/list');
         expect(screen.queryByTestId('cancel-button').getAttribute("href")).toBe('/customers/list');
@@ -43,8 +46,8 @@ describe('NewCustomerPage Component test', () => {
         );
 
         const mockRouter = createMockRouter()
-        mockRouter.push = jest.fn()
-        render(<NewCustomerPage router={mockRouter} />);
+        nextRouterModule.useRouter.mockReturnValue(mockRouter);
+        render(<NewCustomerPage />);
         expect(screen.queryByTestId('first-name').getAttribute("value")).toBe('');
         expect(screen.queryByTestId('last-name').getAttribute("value")).toBe('');
 
@@ -74,8 +77,9 @@ describe('NewCustomerPage Component test', () => {
                 )
             }),
         );
+        nextRouterModule.useRouter.mockReturnValue(createMockRouter());
 
-        render(<NewCustomerPage router={createMockRouter()} />);
+        render(<NewCustomerPage />);
 
         fireEvent.click(screen.getByTestId("submit-button"));
 
