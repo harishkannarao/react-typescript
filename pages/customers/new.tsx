@@ -12,7 +12,7 @@ interface Inputs {
 }
 
 interface State extends Inputs {
-    error?: Error | AxiosError<any>;
+    error: Error | AxiosError<any> | undefined;
     submittingData: boolean;
 }
 
