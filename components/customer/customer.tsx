@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import { Router, NextRouter } from 'next/router'
 
-export interface CustomerModel {
+export type CustomerModel = {
     id: string;
     firstName: string;
     lastName: string;
 }
 
-interface CustomerProps {
+type CustomerProps = {
     value: CustomerModel;
     handleDeleteCustomer: (event: React.MouseEvent<HTMLInputElement>) => void;
 }
@@ -23,7 +23,7 @@ export function Customer(props: CustomerProps) {
     )
 }
 
-interface CustomerListProps {
+type CustomerListProps = {
     isProcessing: boolean;
     router: Router | NextRouter;
     data: CustomerModel[];
