@@ -1,19 +1,13 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
-export function executeGet<R = any, ER = any>(url: string, queryParams: URLSearchParams, successHandler: (res: AxiosResponse<R>) => void, errorHandler: (err: Error | AxiosError<ER>) => void, timeoutMillis: number = 1000) {
-    axios.get(url, {params: queryParams, timeout: timeoutMillis})
-      .then(successHandler)
-      .catch(errorHandler);
+export function executeGet<R = any>(url: string, queryParams: URLSearchParams, timeoutMillis: number = 1000): Promise<AxiosResponse<R>> {
+    return axios.get(url, {params: queryParams, timeout: timeoutMillis});
 };
 
-export function executePost<T = any, R = any, ER = any>(url: any, data: T, successHandler: (res: AxiosResponse<R>) => void, errorHandler: (err: Error | AxiosError<ER>) => void, timeoutMillis: number = 1000) {
-    axios.post(url, data, {timeout: timeoutMillis})
-      .then(successHandler)
-      .catch(errorHandler);
+export function executePost<T = any, R = any>(url: any, data: T, timeoutMillis: number = 1000): Promise<AxiosResponse<R>> {
+  return axios.post(url, data, {timeout: timeoutMillis});
 };
 
-export function executeDelete<T = any, R = any, ER = any>(url: any, data: T, successHandler: (res: AxiosResponse<R>) => void, errorHandler: (err: Error | AxiosError<ER>) => void, timeoutMillis: number = 1000) {
-    axios.delete(url, {data: data, timeout: timeoutMillis})
-      .then(successHandler)
-      .catch(errorHandler);
+export function executeDelete<T = any, R = any>(url: any, data: T, timeoutMillis: number = 1000): Promise<AxiosResponse<R>> {
+  return axios.delete(url, {data: data, timeout: timeoutMillis});
 };

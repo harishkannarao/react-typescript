@@ -8,27 +8,24 @@ export function listCustomers(firstName: string | null, successHandler: (res: Ax
         query.append('firstName', firstName);
     }
     executeGet(
-        process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers", 
-        query, 
-        successHandler, 
-        errorHandler
-    );
+        process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers",
+        query)
+        .then(successHandler)
+        .catch(errorHandler);
 }
 
 export function createCustomer(data: { firstName: string; lastName: string; }, successHandler: (res: AxiosResponse<any>) => void, errorHandler: (err: Error | AxiosError<any>) => void) {
     executePost(
-        process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers", 
-        data, 
-        successHandler, 
-        errorHandler
-    );
+        process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers",
+        data)
+        .then(successHandler)
+        .catch(errorHandler);
 }
 
-export function deleteCustomer(data: {id: number}, successHandler: (res: AxiosResponse<any>) => void, errorHandler: (err: Error | AxiosError<any>) => void) {
+export function deleteCustomer(data: { id: number }, successHandler: (res: AxiosResponse<any>) => void, errorHandler: (err: Error | AxiosError<any>) => void) {
     executeDelete(
-        process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers", 
-        data, 
-        successHandler, 
-        errorHandler
-    );
+        process.env.NEXT_PUBLIC_CUSTOMER_API_BASE_URL + "/customers",
+        data)
+        .then(successHandler)
+        .catch(errorHandler);
 }
