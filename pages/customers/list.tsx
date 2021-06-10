@@ -6,7 +6,7 @@ import { listCustomers, deleteCustomer } from "../../components/common/customer"
 import * as queryParamModule from "../../components/common/query_param"
 import { CustomerModel, CustomerList } from "../../components/customer/customer";
 import { DisplayError } from "../../components/error/error";
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 
 export function CustomersListPage() {
@@ -25,7 +25,7 @@ export function CustomersListPage() {
 
     function fetchData(firstName: string | null) {
         setIsProcessing(true);
-        const successHandler = (result: any) => {
+        const successHandler = (result: AxiosResponse<CustomerModel[]>) => {
             setIsProcessing(false);
             setData(result.data);
             setError(undefined);
@@ -64,7 +64,7 @@ export function CustomersListPage() {
     function handleDeleteCustomer(event: React.MouseEvent<HTMLInputElement>) {
         event.preventDefault();
         setIsProcessing(true);
-        const successHandler = (result: any) => {
+        const successHandler = (_result: any) => {
             fetchData(inputFirstName.trim());
         }
         const data = { 'id': Number(event.currentTarget.getAttribute('data-id')) }
