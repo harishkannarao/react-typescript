@@ -40,19 +40,27 @@ export function CustomersListPage() {
             setFirstNameTypingTimeout(undefined);
         }
         setInputFirstName(event.target.value);
-        if (event.target.value.trim() != '') {
-            setTitle(event.target.value + " :: " + 'List - Customers');
-        } else {
-            setTitle('List - Customers');
-        }
         setFirstNameTypingTimeout(setTimeout(() => {
             fetchData(event.target.value.trim());
         }, 500));
+        updateTitle(event.target.value);
+        updateUrl(event.target.value);
+    }
+
+    function updateTitle(firstName: string) {
+        if (firstName.trim() != '') {
+            setTitle(firstName + " :: " + 'List - Customers');
+        } else {
+            setTitle('List - Customers');
+        }
+    }
+
+    function updateUrl(firstName: string) {
         let query = router.query;
-        if (event.target.value.trim() == '') {
+        if (firstName.trim() == '') {
             delete query['firstName'];
         } else {
-            query['firstName'] = event.target.value;
+            query['firstName'] = firstName;
         }
         const url = {
             'pathname': router.pathname,
@@ -75,9 +83,7 @@ export function CustomersListPage() {
         let firstName: string | null = queryParamModule.getParameterByName("firstName");
         if (firstName != null) {
             setInputFirstName(firstName);
-            if (firstName.trim() != '') {
-                setTitle(firstName + " :: " + 'List - Customers');
-            }
+            updateTitle(firstName);
         }
         fetchData(firstName);
         return () => {
