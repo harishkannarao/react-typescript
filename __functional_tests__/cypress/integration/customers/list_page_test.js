@@ -99,17 +99,21 @@ describe('Test Customer List Page', () => {
     });
 
     it('tests jump to bottom and top', () => {
+        let data = [];
+        for (let i = 1; i<=100; i++) {
+            data.push(
+                {
+                    id: i,
+                    firstName: 'test-first-name-' + i,
+                    lastName: 'test-last-name-' + i
+                }
+            );
+        }
         cy.intercept(Cypress.env('CUSTOMER_API_BASE_URL') + '/customers',
             {
                 statusCode: 200,
                 delay: 0,
-                body: [
-                    {
-                        id: 1,
-                        firstName: 'test-first-name-1',
-                        lastName: 'test-last-name-1'
-                    }
-                ]
+                body: data
             }
         )
 
