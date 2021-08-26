@@ -11,7 +11,8 @@ import { AxiosError, AxiosResponse } from 'axios';
 
 export function CustomersListPage() {
     const router: NextRouter = useRouter();
-    const [title, setTitle] = useState<string>('List - Customers');
+    const defaultTitle: string = 'List - Customers';
+    const [title, setTitle] = useState<string>(defaultTitle);
     const [inputFirstName, setInputFirstName] = useState<string>('');
     const [firstNameTypingTimeout, setFirstNameTypingTimeout] = useState<any>(undefined);
     const [error, setError] = useState<Error | AxiosError<any> | undefined>(undefined);
@@ -43,15 +44,14 @@ export function CustomersListPage() {
         setFirstNameTypingTimeout(setTimeout(() => {
             fetchData(event.target.value.trim());
         }, 500));
-        updateTitle(event.target.value);
         updateUrl(event.target.value);
     }
 
-    function updateTitle(firstName: string) {
-        if (firstName.trim() != '') {
-            setTitle(firstName + " :: " + 'List - Customers');
+    function updateTitle() {
+        if (inputFirstName.trim() != '') {
+            setTitle(inputFirstName + " :: " + 'List - Customers');
         } else {
-            setTitle('List - Customers');
+            setTitle(defaultTitle);
         }
     }
 
@@ -83,7 +83,6 @@ export function CustomersListPage() {
         let firstName: string | null = queryParamModule.getParameterByName("firstName");
         if (firstName != null) {
             setInputFirstName(firstName);
-            updateTitle(firstName);
         }
         fetchData(firstName);
         return () => {
@@ -92,6 +91,8 @@ export function CustomersListPage() {
             }
         };
     }, []);
+
+    useEffect(() => updateTitle(), [inputFirstName])
 
     return (
         <div>
