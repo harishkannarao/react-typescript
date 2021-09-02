@@ -73,4 +73,12 @@ describe('Test New Customer Page', () => {
         cy.getByTestId("error-content").should('contain', 'unit-test-error');
         cy.getByTestId("error-content").should('contain', 'Internal Server Error');
     });
+
+    it('display common header and footer information', () => {
+        cy.visit("/customers/new");
+
+        cy.getByTestId("common-header").should('have.text', 'Custom Header');
+        cy.getByTestId("common-footer").should('have.text', 'Common Footer');
+        cy.getByTestId("footer-pathname").should('have.text', '/customers/new');
+    })
 });

@@ -26,7 +26,7 @@ describe('NewCustomerPage Component test', () => {
 
     test('navigation links', async () => {
         nextRouterModule.useRouter.mockReturnValue(createMockRouter());
-        render(<NewCustomerPage />);
+        render(<NewCustomerPage setCommonHeader={jest.fn()}/>);
         expect(screen.queryByTestId('home-link').getAttribute("href")).toBe('/');
         expect(screen.queryByTestId('list-customers-link').getAttribute("href")).toBe('/customers/list');
         expect(screen.queryByTestId('cancel-button').getAttribute("href")).toBe('/customers/list');
@@ -47,7 +47,7 @@ describe('NewCustomerPage Component test', () => {
 
         const mockRouter = createMockRouter()
         nextRouterModule.useRouter.mockReturnValue(mockRouter);
-        render(<NewCustomerPage />);
+        render(<NewCustomerPage setCommonHeader={jest.fn()} />);
         expect(screen.queryByTestId('first-name').getAttribute("value")).toBe('');
         expect(screen.queryByTestId('last-name').getAttribute("value")).toBe('');
 
@@ -79,7 +79,7 @@ describe('NewCustomerPage Component test', () => {
         );
         nextRouterModule.useRouter.mockReturnValue(createMockRouter());
 
-        render(<NewCustomerPage />);
+        render(<NewCustomerPage setCommonHeader={jest.fn()} />);
 
         fireEvent.click(screen.getByTestId("submit-button"));
 
