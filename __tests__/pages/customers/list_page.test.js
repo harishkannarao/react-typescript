@@ -341,7 +341,7 @@ describe('CustomersListPage Component test', () => {
         await screen.findByTestId('success-content');
         expect(listCustomersCount).toBe(1);
 
-        fireEvent.click(screen.getAllByTestId("delete-button")[1]);
+        fireEvent.click(screen.getByTestId("delete-button-2"));
         await screen.findByTestId('processing-content');
         await waitFor(() => expect(screen.queryByTestId('processing-content')).toBeNull());
 
@@ -380,7 +380,7 @@ describe('CustomersListPage Component test', () => {
         render(<CustomersListPage />)
         await screen.findByTestId('success-content');
 
-        fireEvent.click(screen.getAllByTestId("delete-button")[0]);
+        fireEvent.click(screen.getByTestId("delete-button-1"));
 
         await screen.findByTestId('error-content');
         expect(screen.queryByTestId('error-content').textContent).toContain('unit-test-error');
@@ -393,7 +393,7 @@ describe('CustomersListPage Component test', () => {
             }),
         );
 
-        fireEvent.click(screen.getAllByTestId("delete-button")[0]);
+        fireEvent.click(screen.getByTestId("delete-button-1"));
 
         await screen.findByTestId('success-content');
         await waitFor(() => expect(screen.queryByTestId('error-content')).toBeNull());

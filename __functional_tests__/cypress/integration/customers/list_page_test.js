@@ -84,7 +84,7 @@ describe('Test Customer List Page', () => {
 
         cy.wait('@listCustomers-0');
 
-        cy.getByTestId("delete-button").eq(1).click();
+        cy.getByTestId("delete-button-2").click();
 
         cy.getByTestId("processing-content").should('exist');
 

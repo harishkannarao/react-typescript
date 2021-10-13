@@ -15,7 +15,7 @@ type CustomerProps = {
 export function Customer(props: CustomerProps) {
     return (
         <tr>
-            <td><input data-testid="delete-button" type="button" data-id={props.value.id} onClick={props.handleDeleteCustomer} value="Delete" /></td>
+            <td><input data-testid={`delete-button-${props.value.id}`} type="button" data-id={props.value.id} onClick={props.handleDeleteCustomer} value="Delete" /></td>
             <td data-testid="id">{props.value.id}</td>
             <td data-testid="firstName">{props.value.firstName}</td>
             <td data-testid="lastName">{props.value.lastName}</td>
