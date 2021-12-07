@@ -1,4 +1,5 @@
 {   
+    "testEnvironment": "jsdom",
     "testMatch": ["<rootDir>/__tests__/**/*.test.js"],
     "setupFiles": ["<rootDir>/__tests__/setEnvVars.js"],
     "setupFilesAfterEnv": ["<rootDir>/__tests__/setup-env.js"]
