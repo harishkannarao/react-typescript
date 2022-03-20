@@ -29,6 +29,10 @@ or
 
     npm run build && npm run export && npm run serve
 
+### Update dependencies
+
+    npm update
+
 ### Start Open Api Mocker
 
     npm run open-api-mocker
