@@ -80,17 +80,19 @@ export function CustomersListPage() {
     }
 
     useEffect(() => {
-        let firstName: string | null = queryParamModule.getParameterByName("firstName");
-        if (firstName != null) {
-            setInputFirstName(firstName);
-        }
-        fetchData(firstName);
-        return () => {
-            if (firstNameTypingTimeout) {
-                clearTimeout(firstNameTypingTimeout);
+        if (router.isReady) {
+            let firstName: string | null = queryParamModule.getParameterByName("firstName");
+            if (firstName != null) {
+                setInputFirstName(firstName);
             }
-        };
-    }, []);
+            fetchData(firstName);
+            return () => {
+                if (firstNameTypingTimeout) {
+                    clearTimeout(firstNameTypingTimeout);
+                }
+            };
+        }
+    }, [router.isReady]);
 
     useEffect(() => updateTitle(), [inputFirstName])
 

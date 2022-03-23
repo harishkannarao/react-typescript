@@ -5,5 +5,6 @@ export function createMockRouter() {
         query: {},
         push: jest.fn(),
         prefetch: jest.fn(() => Promise.resolve()),
+        isReady: jest.fn(() => true)
     }
 }
