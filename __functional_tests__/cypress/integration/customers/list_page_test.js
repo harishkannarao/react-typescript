@@ -31,14 +31,6 @@ describe('Test Customer List Page', () => {
     });
 
     it('Displays title', () => {
-        cy.intercept(Cypress.env('CUSTOMER_API_BASE_URL') + '/customers',
-            {
-                statusCode: 200,
-                delay: 0,
-                body: []
-            }
-        )
-
         cy.visit("/customers/list/");
 
         cy.title().should('eq', 'List - Customers');
@@ -134,7 +126,7 @@ describe('Test Customer List Page', () => {
         cy.intercept({
             method: 'GET',
             url: cy.myFunctions.createCustomerApiUrlMatcher(),
-            pathname: '/customers',
+            pathname: '**/customers',
             query: {
                 firstName: 'test-first-name'
             }
@@ -167,7 +159,7 @@ describe('Test Customer List Page', () => {
         cy.intercept({
             method: 'GET',
             url: cy.myFunctions.createCustomerApiUrlMatcher(),
-            pathname: '/customers',
+            pathname: '**/customers',
         }, (req) => {
             req.alias = 'listCustomers-' + requestCount;
             requestCount += 1;
