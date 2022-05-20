@@ -14,6 +14,8 @@ rm -rf cypress-report
 
 mkdir -p cypress-report/mochawesome-report
 
+npm install
+
 npm run test:run-ci
 
 npm run build
