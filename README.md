@@ -31,7 +31,7 @@ or
 
 ### Update dependencies
 
-    npm update
+    npm run ncu
 
 ### Start Open Api Mocker
 
