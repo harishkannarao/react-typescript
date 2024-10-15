@@ -71,6 +71,8 @@ or
 
     ./ci-build.sh
 
+    npm run serve
+
 ### Generate full cypress html report
 
     npm run mochawesome-merge && npm run marge
