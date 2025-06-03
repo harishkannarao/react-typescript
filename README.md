@@ -11,6 +11,12 @@ This repository contains a simple front end java script application using React 
 
 ### Install node modules
 
+Install dependencies from package.json without updating package-lock.json
+
+    npm ci
+
+or Install dependencies from package.json by creating/updating package-lock.json
+
     npm install
 
 ### Start application in development mode
