@@ -4,3 +4,4 @@ out/
 jest-stare/
 cypress-report/
 .idea
+.nodeenv
